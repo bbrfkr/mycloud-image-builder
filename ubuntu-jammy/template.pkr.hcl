@@ -3,7 +3,7 @@ locals {
 }
 
 source "openstack" "ubuntu-jammy" {
-  flavor              = "g1.medium"
+  flavor              = "g1.small"
   image_name          = "ubuntu-jammy-${local.buildtime}"
   source_image_name   = "ubuntu-jammy"
   ssh_username        = "ubuntu"
@@ -14,18 +14,12 @@ source "openstack" "ubuntu-jammy" {
 
 build {
   sources = ["source.openstack.ubuntu-jammy"]
+  provisioner "file" {
+    source = "./scripts"
+    destination = "/tmp"
+  }
   provisioner "shell" {
-    inline = [
-      <<EOS
-cat <<SCRIPT | sudo bash -
-export DEBIAN_FRONTEND=noninteractive
-
-# os update
-apt -y update
-apt -y upgrade
-SCRIPT
-EOS
-    ]
+    inline = ["sudo -E bash /tmp/scripts/main.sh"]
   }
 }
 

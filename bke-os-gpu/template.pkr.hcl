@@ -12,7 +12,7 @@ locals {
 source "openstack" "bke-os-gpu" {
   flavor              = "p1.large"
   image_name          = "bke-os-gpu-v${local.bke_version}-${local.buildtime}"
-  source_image_name   = "bke-os-jammy"
+  source_image_name   = "config-agent-jammy"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
   reuse_ips           = true

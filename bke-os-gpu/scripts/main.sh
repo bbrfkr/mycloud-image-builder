@@ -4,8 +4,10 @@ export DEBIAN_FRONTEND=noninteractive
 apt -y update
 apt -y upgrade
 
-# install jq, yj
-apt -y install jq
+# install yq, yj
+curl -LJO https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+mv yq_linux_amd64 /usr/local/bin/yq
+chmod a+x /usr/local/bin/yq
 wget -O /tmp/yj "https://github.com/sclevine/yj/releases/download/v5.1.0/yj-linux-amd64"
 install -m 755 /tmp/yj /usr/local/bin/
 

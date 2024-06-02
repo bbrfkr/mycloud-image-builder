@@ -1,7 +1,8 @@
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  nvidia_driver_version = "535"
-  cuda_repo_url = "https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda-repo-ubuntu2204-12-2-local_12.2.2-535.104.05-1_amd64.deb"
+  nvidia_driver_version = "550"
+  cuda_version = "12-1"
+  python_version = "3.11.9"
 }
 
 source "openstack" "ubuntu-jammy-gpu" {
@@ -21,11 +22,26 @@ build {
     destination = "/tmp"
   }
   provisioner "shell" {
+    inline = ["sudo -E bash /tmp/scripts/01-os.sh"]
+  }
+  provisioner "shell" {
+    environment_vars = [
+      "PYTHON_VERSION=${local.python_version}",
+    ]
+    inline = ["bash /tmp/scripts/02-python.sh"]
+  }
+  provisioner "shell" {
     environment_vars = [
       "NVIDIA_DRIVER_VERSION=${local.nvidia_driver_version}",
-      "CUDA_REPO_URL=${local.cuda_repo_url}",
+      "CUDA_VERSION=${local.cuda_version}",
     ]
-    inline = ["sudo -E bash /tmp/scripts/main.sh"]
+    inline = ["bash /tmp/scripts/03-nvidia.sh"]
+  }
+  provisioner "shell" {
+    inline = ["sudo -E bash /tmp/scripts/04-docker.sh"]
+  }
+  provisioner "shell" {
+    inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]
   }
 }
 

@@ -5,8 +5,8 @@ locals {
   runc_version = "1.1.10"
   cni_plugins_version = "1.4.0"
   nerdctl_version = "1.7.2"
-  nvidia_driver_version = "535"
-  cuda_repo_url = "https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda-repo-ubuntu2204-12-2-local_12.2.2-535.104.05-1_amd64.deb"
+  nvidia_driver_version = "550"
+  cuda_toolkit_version = "12-4"
 }
 
 source "openstack" "bke-os-gpu" {
@@ -15,6 +15,7 @@ source "openstack" "bke-os-gpu" {
   source_image_name   = "config-agent-jammy"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
+  networks            = ["7f3a51a5-d35d-4ba4-9deb-c8e8efecc521"]
   reuse_ips           = true
   security_groups     = ["allow-all"]
   metadata            = {
@@ -35,9 +36,8 @@ build {
       "CNI_PLUGINS_VERSION=${local.cni_plugins_version}",
       "NERDCTL_VERSION=${local.nerdctl_version}",
       "NVIDIA_DRIVER_VERSION=${local.nvidia_driver_version}",
-      "CUDA_REPO_URL=${local.cuda_repo_url}",
+      "CUDA_TOOLKIT_VERSION=${local.cuda_toolkit_version}",
     ]
     inline = ["sudo -E bash /tmp/scripts/main.sh"]
   }
 }
-

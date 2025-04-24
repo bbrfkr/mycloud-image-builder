@@ -2,10 +2,10 @@ locals {
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
 }
 
-source "openstack" "ubuntu-jammy" {
+source "openstack" "ubuntu-noble" {
   flavor              = "g1.small"
-  image_name          = "ubuntu-jammy-${local.buildtime}"
-  source_image_name   = "ubuntu-jammy"
+  image_name          = "ubuntu-noble-${local.buildtime}"
+  source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
   reuse_ips           = true
@@ -13,7 +13,7 @@ source "openstack" "ubuntu-jammy" {
 }
 
 build {
-  sources = ["source.openstack.ubuntu-jammy"]
+  sources = ["source.openstack.ubuntu-noble"]
   provisioner "file" {
     source = "./scripts"
     destination = "/tmp"

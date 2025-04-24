@@ -5,7 +5,7 @@ locals {
   runc_version = "1.1.10"
   cni_plugins_version = "1.4.0"
   nerdctl_version = "1.7.2"
-  cuda_toolkit_version = "12-4"
+  cuda_toolkit_version = "12-6"
 }
 
 source "openstack" "bke-os-gpu" {

@@ -2,5 +2,5 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # os update
-apt-get update
-apt-get -y upgrade
+apt update
+apt -y upgrade

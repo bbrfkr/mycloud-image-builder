@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    openstack = {
+      version = "= 1.1.2"
+      source  = "github.com/hashicorp/openstack"
+    }
+  }
+}
+
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
   nvidia_driver_version = "550"

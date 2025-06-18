@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    openstack = {
+      version = "= 1.1.2"
+      source  = "github.com/hashicorp/openstack"
+    }
+  }
+}
+
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
   bke_version = "2.0.0"

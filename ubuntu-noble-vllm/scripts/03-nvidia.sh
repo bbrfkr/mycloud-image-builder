@@ -7,12 +7,13 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 rm -f cuda-keyring_1.1-1_all.deb
 sudo apt-get update
-sudo apt -y install nvidia-driver-${NVIDIA_DRIVER_VERSION}
-sudo apt-get -y install cuda-${CUDA_VERSION}
+sudo apt-get -y install nvidia-open
+sudo apt-get -y install cuda-toolkit
+sudo apt-get -y install nvidia-gds
 
 # path setting
 echo 'export PATH="/usr/local/cuda/bin:$PATH"' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"' >> ~/.bashrc
 
 # install lightdm (for fan control)
-sudo apt install -y lightdm
+sudo apt-get install -y lightdm

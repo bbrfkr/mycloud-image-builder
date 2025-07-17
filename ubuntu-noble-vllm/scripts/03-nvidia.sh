@@ -9,7 +9,6 @@ rm -f cuda-keyring_1.1-1_all.deb
 sudo apt-get update
 sudo apt-get -y install nvidia-open
 sudo apt-get -y install cuda-toolkit
-sudo apt-get -y install nvidia-gds
 
 # path setting
 echo 'export PATH="/usr/local/cuda/bin:$PATH"' >> ~/.bashrc

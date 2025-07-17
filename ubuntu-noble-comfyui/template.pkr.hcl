@@ -44,6 +44,9 @@ build {
   }
   provisioner "shell" {
     inline = ["bash /tmp/scripts/04-comfyui.sh"]
+    environment_vars = [
+      "CUDA_VERSION=${local.cuda_version}",
+    ]
   }
   provisioner "shell" {
     inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]

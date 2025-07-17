@@ -10,7 +10,7 @@ packer {
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
   nvidia_driver_version = "575"
-  cuda_version = "12-8"
+  cuda_version = "12-9"
   python_version = "3.11.11"
 }
 

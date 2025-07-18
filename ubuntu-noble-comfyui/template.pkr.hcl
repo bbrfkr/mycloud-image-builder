@@ -36,17 +36,10 @@ build {
     inline = ["bash /tmp/scripts/02-python.sh"]
   }
   provisioner "shell" {
-    environment_vars = [
-      "NVIDIA_DRIVER_VERSION=${local.nvidia_driver_version}",
-      "CUDA_VERSION=${local.cuda_version}",
-    ]
     inline = ["bash /tmp/scripts/03-nvidia.sh"]
   }
   provisioner "shell" {
     inline = ["bash /tmp/scripts/04-comfyui.sh"]
-    environment_vars = [
-      "CUDA_VERSION=${local.cuda_version}",
-    ]
   }
   provisioner "shell" {
     inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]

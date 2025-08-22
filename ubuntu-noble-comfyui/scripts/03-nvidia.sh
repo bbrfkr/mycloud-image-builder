@@ -7,7 +7,7 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 rm -f cuda-keyring_1.1-1_all.deb
 sudo apt-get update
-sudo apt-get -y install nvidia-open-575
+sudo apt-get -y install nvidia-open-580
 sudo apt-get -y install cuda-toolkit-12-8
 
 # path setting

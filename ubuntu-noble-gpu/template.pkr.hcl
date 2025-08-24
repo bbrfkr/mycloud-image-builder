@@ -10,14 +10,14 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  nvidia_driver_version = "570"
+  nvidia_driver_version = "580"
   cuda_version = "12-8"
   python_version = "3.11.11"
 }
 
 source "openstack" "ubuntu-noble-gpu" {
   flavor              = "p1.large"
-  image_name          = "ubuntu-noble-gpu-${local.buildtime}"
+  image_name          = "ubuntu-noble-gpu-nvidia-${local.nvidia_driver_version}-cuda-${local.cuda_version}-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"

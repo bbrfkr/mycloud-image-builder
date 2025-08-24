@@ -9,13 +9,14 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  nvidia_driver_version = "575"
-  cuda_version = "12-8"
+  nvidia_driver_version = "580"
+  cuda_version = "12-9"
   python_version = "3.11.11"
+  vllm_commit = "65197a5fb37ef4d8b93e0b99ecc8b902fe948e97"
 }
 
 source "openstack" "ubuntu-noble-vllm" {
-  flavor              = "p1.large"
+  flavor              = "p2.xlarge"
   image_name          = "ubuntu-noble-vllm-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
@@ -49,6 +50,7 @@ build {
   provisioner "shell" {
     environment_vars = [
       "CUDA_VERSION=${local.cuda_version}",
+      "VLLM_COMMIT=${local.vllm_commit}",
     ]
     inline = ["bash /tmp/scripts/04-vllm.sh"]
   }

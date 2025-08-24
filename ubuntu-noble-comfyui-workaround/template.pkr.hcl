@@ -13,7 +13,7 @@ locals {
 
 source "openstack" "ubuntu-noble-comfyui" {
   flavor              = "p1.large"
-  image_name          = "ubuntu-noble-comfyui-${local.buildtime}"
+  image_name          = "ubuntu-noble-comfyui-workaround-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"

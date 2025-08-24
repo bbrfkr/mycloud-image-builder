@@ -17,7 +17,7 @@ locals {
 
 source "openstack" "ubuntu-noble-vllm" {
   flavor              = "p2.xlarge"
-  image_name          = "ubuntu-noble-vllm-${local.buildtime}"
+  image_name          = "ubuntu-noble-vllm-workaround-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"

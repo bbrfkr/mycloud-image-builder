@@ -9,9 +9,7 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  nvidia_driver_version = "575"
-  cuda_version = "12-8"
-  python_version = "3.11.11"
+  vllm_install_script = "01-vllm-cuda-128.sh"
 }
 
 source "openstack" "ubuntu-noble-vllm" {
@@ -31,26 +29,7 @@ build {
     destination = "/tmp"
   }
   provisioner "shell" {
-    inline = ["sudo -E bash /tmp/scripts/01-os.sh"]
-  }
-  provisioner "shell" {
-    environment_vars = [
-      "PYTHON_VERSION=${local.python_version}",
-    ]
-    inline = ["bash /tmp/scripts/02-python.sh"]
-  }
-  provisioner "shell" {
-    environment_vars = [
-      "NVIDIA_DRIVER_VERSION=${local.nvidia_driver_version}",
-      "CUDA_VERSION=${local.cuda_version}",
-    ]
-    inline = ["bash /tmp/scripts/03-nvidia.sh"]
-  }
-  provisioner "shell" {
-    environment_vars = [
-      "CUDA_VERSION=${local.cuda_version}",
-    ]
-    inline = ["bash /tmp/scripts/04-vllm.sh"]
+    inline = ["bash /tmp/scripts/${local.vllm_install_script}"]
   }
   provisioner "shell" {
     inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]

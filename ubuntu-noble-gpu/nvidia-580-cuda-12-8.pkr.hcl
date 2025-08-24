@@ -7,17 +7,17 @@ packer {
   }
 }
 
+
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
   nvidia_driver_version = "580"
-  cuda_version = "12-9"
+  cuda_version = "12-8"
   python_version = "3.11.11"
-  vllm_commit = "65197a5fb37ef4d8b93e0b99ecc8b902fe948e97"
 }
 
-source "openstack" "ubuntu-noble-vllm" {
-  flavor              = "p2.xlarge"
-  image_name          = "ubuntu-noble-vllm-workaround-${local.buildtime}"
+source "openstack" "ubuntu-noble-gpu" {
+  flavor              = "p1.large"
+  image_name          = "ubuntu-noble-gpu-nvidia-${local.nvidia_driver_version}-cuda-${local.cuda_version}-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
@@ -26,7 +26,7 @@ source "openstack" "ubuntu-noble-vllm" {
 }
 
 build {
-  sources = ["source.openstack.ubuntu-noble-vllm"]
+  sources = ["source.openstack.ubuntu-noble-gpu"]
   provisioner "file" {
     source = "./scripts"
     destination = "/tmp"
@@ -48,11 +48,7 @@ build {
     inline = ["bash /tmp/scripts/03-nvidia.sh"]
   }
   provisioner "shell" {
-    environment_vars = [
-      "CUDA_VERSION=${local.cuda_version}",
-      "VLLM_COMMIT=${local.vllm_commit}",
-    ]
-    inline = ["bash /tmp/scripts/04-vllm.sh"]
+    inline = ["sudo -E bash /tmp/scripts/04-docker.sh"]
   }
   provisioner "shell" {
     inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]

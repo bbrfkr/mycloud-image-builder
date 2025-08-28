@@ -9,13 +9,13 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  vllm_install_script = "01-vllm-cuda-128.sh"
+  vllm_install_script = "01-vllm-cuda-12-8-nightly-build-src.sh"
 }
 
 source "openstack" "ubuntu-noble-vllm" {
-  flavor              = "p1.large"
-  image_name          = "ubuntu-noble-vllm-${local.buildtime}"
-  source_image_name   = "ubuntu-noble"
+  flavor              = "p1.build"
+  image_name          = "ubuntu-noble-vllm-nvidia-580-cuda-12-8-build-src-${local.buildtime}"
+  source_image_name   = "ubuntu-noble-gpu-nvidia-580-cuda-12-8-20250824-1311"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
   networks            = ["e79618e1-836f-42d5-bfa8-fe90e4987213"] # stg-network

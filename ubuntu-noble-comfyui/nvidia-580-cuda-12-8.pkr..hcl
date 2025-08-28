@@ -9,12 +9,13 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
+  comfyui_install_script = "01-comfyui-cuda-12-8.sh"
 }
 
 source "openstack" "ubuntu-noble-comfyui" {
   flavor              = "p1.large"
-  image_name          = "ubuntu-noble-comfyui-workaround-${local.buildtime}"
-  source_image_name   = "ubuntu-noble"
+  image_name          = "ubuntu-noble-comfyui-nvidia-580-cuda-12-8-${local.buildtime}"
+  source_image_name   = "ubuntu-noble-gpu-nvidia-580-cuda-12-8-20250824-1311"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
   networks            = ["e79618e1-836f-42d5-bfa8-fe90e4987213"] # stg-network
@@ -28,16 +29,7 @@ build {
     destination = "/tmp"
   }
   provisioner "shell" {
-    inline = ["sudo -E bash /tmp/scripts/01-os.sh"]
-  }
-  provisioner "shell" {
-    inline = ["bash /tmp/scripts/02-python.sh"]
-  }
-  provisioner "shell" {
-    inline = ["bash /tmp/scripts/03-nvidia.sh"]
-  }
-  provisioner "shell" {
-    inline = ["bash /tmp/scripts/04-comfyui.sh"]
+    inline = ["bash /tmp/scripts/${local.comfyui_install_script}"]
   }
   provisioner "shell" {
     inline = ["sudo -E bash /tmp/scripts/99-cleanup.sh"]

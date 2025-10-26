@@ -1,0 +1,20 @@
+{
+	"name": "workspace",
+	"build": {		  
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+    "customizations": {
+		"vscode": {
+			"extensions": [
+				"hashicorp.hcl"
+			]
+		}
+    },
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+	"mounts": [
+		"source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.openstack,target=/home/vscode/.openstack,type=bind,consistency=cached"
+	]
+}

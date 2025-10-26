@@ -16,7 +16,7 @@ locals {
 }
 
 source "openstack" "ubuntu-noble-gpu" {
-  flavor              = "p2.xlarge"
+  flavor              = "p1.build"
   image_name          = "ubuntu-noble-gpu-nvidia-${local.nvidia_driver_version}-cuda-${local.cuda_version}-${local.buildtime}"
   source_image_name   = "ubuntu-noble"
   ssh_username        = "ubuntu"

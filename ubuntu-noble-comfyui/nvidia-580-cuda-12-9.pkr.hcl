@@ -13,9 +13,9 @@ locals {
 }
 
 source "openstack" "ubuntu-noble-comfyui" {
-  flavor              = "p2.build"
+  flavor              = "p1.build"
   image_name          = "ubuntu-noble-comfyui-nvidia-580-cuda-12-9-${local.buildtime}"
-  source_image_name   = "ubuntu-noble-gpu-nvidia-580-cuda-12-9-20250824-1317"
+  source_image_name   = "ubuntu-noble-gpu-nvidia-580-cuda-12-9-20251028-1246"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"
   networks            = ["e79618e1-836f-42d5-bfa8-fe90e4987213"] # stg-network

@@ -9,12 +9,12 @@ packer {
 
 locals { 
   buildtime = formatdate("YYYYMMDD-hhmm", timestamp())
-  vllm_install_script = "01-vllm-cuda-12-9-with-flashinfer.sh"
+  vllm_install_script = "01-vllm-cuda-12-9-with-flashinfer-nightly.sh"
 }
 
 source "openstack" "ubuntu-noble-vllm" {
   flavor              = "p1.build"
-  image_name          = "ubuntu-noble-vllm-nvidia-580-cuda-12-9-with-flashinfer-${local.buildtime}"
+  image_name          = "ubuntu-noble-vllm-nvidia-580-cuda-12-9-with-flashinfer-nightly-${local.buildtime}"
   source_image_name   = "ubuntu-noble-gpu-nvidia-580-cuda-12-9-20251210-0638"
   ssh_username        = "ubuntu"
   floating_ip_network = "common_provider"

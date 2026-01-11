@@ -1,14 +1,11 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # os update
-apt -y update
-apt -y upgrade
+apt-get -y update
+apt-get -y upgrade
 
-# install python build env
-apt-get -y install python3-pip
-
-# install config agent by pip
-pip3 install os-collect-config os-apply-config os-refresh-config
+# install config agent via apt-get
+apt-get -y install python3-os-collect-config python3-os-apply-config python3-os-refresh-config
 
 # configure config agent
 bash /tmp/scripts/configure_config_agent.sh
